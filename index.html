@@ -11,7 +11,7 @@
     body {
       font-family: Georgia, 'Times New Roman', serif;
       font-size: 17px;
-      line-height: 1.7;h
+      line-height: 1.7;
       color: #2c2c2c;
       background: #f9f7f4;
     }
@@ -493,7 +493,7 @@
             <label class="class-item"><input type="checkbox" name="classChoice" value="Basics of Mah Jongg (6 weeks) — Mondays, 11:00 a.m."> Basics of Mah Jongg (6 weeks)<span class="class-time-confirmed">Mondays, 11:00 a.m.</span></label>
             <label class="class-item"><input type="checkbox" name="classChoice" value="Learning to Play Billiards (6 weeks) — Thursdays, beginning July 16, 4:00 p.m."> Learning to Play Billiards (6 weeks)<span class="class-time-confirmed">Thursdays, beginning July 16, 4:00 p.m.</span></label>
             <label class="class-item"><input type="checkbox" name="classChoice" value="Introduction to Backgammon (6 weeks) — Day &amp; Time TBD"> Introduction to Backgammon (6 weeks)<span class="class-time-tbd">Day &amp; Time TBD</span><span class="instructor-needed">— Instructor Needed</span></label>
-            <label class="class-item"><input type="checkbox" name="classChoice" value="Learn to Play Canasta, Bridge, or Euchre (6 weeks) — Day &amp; Time TBD"> Learn to Play Canasta, Bridge, or Euchre (6 weeks)<span class="class-time-tbd">Day &amp; Time TBD</span><span class="instructor-needed">— Instructor Needed</span></label>
+            <label class="class-item"><input type="checkbox" name="classChoice" value="Learn to Play Canasta and Other Social Card Games (6 weeks) — Day &amp; Time TBD"> Learn to Play Canasta and Other Social Card Games (6 weeks)<span class="class-time-tbd">Day &amp; Time TBD</span><span class="instructor-needed">— Instructor Needed</span></label>
             <label class="class-item"><input type="checkbox" name="classChoice" value="Rules of Popular Sports Explained (6 weeks) — Day &amp; Time TBD"> Rules of Popular Sports Explained (6 weeks)<span class="class-time-tbd">Day &amp; Time TBD</span><span class="instructor-needed">— Instructor Needed</span></label>
 
             <div class="class-cat-header" id="cat-arts">Arts and Crafts, Music</div>
@@ -628,7 +628,10 @@
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
-    var body = new URLSearchParams(new FormData(form)).toString();
+
+    var fd = new FormData(form);
+    var body = new URLSearchParams(fd).toString();
+
     fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -640,8 +643,8 @@
       window.scrollTo({ top: successBox.offsetTop - 80, behavior: 'smooth' });
     })
     .catch(function (err) {
-      console.error('Registration error:', err);
-      alert('There was a problem submitting your registration. Please email rick.g.schuette@gmail.com.');
+      console.error('Registration submission error:', err);
+      alert('There was a problem submitting your registration. Please try again or email rick.g.schuette@gmail.com.');
     });
   });
 })();
@@ -664,7 +667,9 @@
       ideaForm.style.display  = 'none';
       ideaThnks.style.display = 'block';
     })
-    .catch(function (err) { console.error('Idea error:', err); });
+    .catch(function (err) {
+      console.error('Idea submission error:', err);
+    });
   });
 })();
 </script>
