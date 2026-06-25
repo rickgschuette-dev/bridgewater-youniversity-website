@@ -590,10 +590,82 @@
 <div class="contact-bar" id="contact">
   <div class="container">
     <p><strong style="color:white; font-size:1.05rem;">Questions? We would love to hear from you.</strong></p>
-    <p>Contact Bridgewater Friends Forum Coordinator: <a href="mailto:rick.g.schuette@gmail.com">rick.g.schuette@gmail.com</a></p>
-    <p style="font-size:0.9rem; color:#9ab8d4; margin-top:6px;">Bridgewater &nbsp;·&nbsp; Viera, Florida 32940</p>
+    <p>Contact Bridgewater Friends Forum Coordinator:
+       <a href="mailto:rick.g.schuette@gmail.com" style="color:#9ab8d4;">rick.g.schuette@gmail.com</a></p>
+    <p style="font-size:0.9rem; color:#9ab8d4; margin-top:6px;">Bridgewater &nbsp;&middot;&nbsp; Viera, Florida 32940</p>
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer style="background:#111;color:#888;text-align:center;padding:16px 0;font-size:0.8rem;">
+  <p style="margin:0;">&copy; 2026 Bridgewater Friends Forum &nbsp;&middot;&nbsp; Viera, Florida 32940</p>
+</footer>
 
-<!-- ═══════════════════════════�
+<script>
+/* ── Checkbox counter ──────────────────────────────── */
+(function () {
+  var boxes    = document.querySelectorAll('input[name="classChoice"]');
+  var countDiv = document.getElementById('selectedCount');
+
+  function updateCount() {
+    var n = document.querySelectorAll('input[name="classChoice"]:checked').length;
+    if (countDiv) {
+      countDiv.textContent = n === 0 ? '' : n + ' course' + (n === 1 ? '' : 's') + ' selected';
+    }
+  }
+  boxes.forEach(function (b) { b.addEventListener('change', updateCount); });
+  updateCount();
+})();
+
+/* ── Registration form — fetch submit ──────────────── */
+(function () {
+  var form       = document.getElementById('bwuForm');
+  var successBox = document.getElementById('successBox');
+  if (!form || !successBox) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var body = new URLSearchParams(new FormData(form)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    })
+    .then(function () {
+      form.style.display       = 'none';
+      successBox.style.display = 'block';
+      window.scrollTo({ top: successBox.offsetTop - 80, behavior: 'smooth' });
+    })
+    .catch(function (err) {
+      console.error('Registration error:', err);
+      alert('There was a problem submitting your registration. Please email rick.g.schuette@gmail.com.');
+    });
+  });
+})();
+
+/* ── Share-an-Idea form — fetch submit ─────────────── */
+(function () {
+  var ideaForm  = document.querySelector('form[name="bff-share-idea"]');
+  var ideaThnks = document.getElementById('share-idea-thanks');
+  if (!ideaForm || !ideaThnks) return;
+
+  ideaForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var body = new URLSearchParams(new FormData(ideaForm)).toString();
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body
+    })
+    .then(function () {
+      ideaForm.style.display  = 'none';
+      ideaThnks.style.display = 'block';
+    })
+    .catch(function (err) { console.error('Idea error:', err); });
+  });
+})();
+</script>
+</body>
+</html>
